@@ -1,0 +1,79 @@
+[gd_scene load_steps=5 format=3 uid="uid://rfarh0rm4ofn"]
+
+[ext_resource type="Script" path="res://Scripts/StageManager.gd" id="1_2j47t"]
+[ext_resource type="Script" path="res://Scripts/GravityObjects.gd" id="1_wwocr"]
+[ext_resource type="PackedScene" uid="uid://bvrv4a771xj54" path="res://Prefabs/GameGui.tscn" id="3_p2mm4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4byo2"]
+
+[node name="Game" type="Node" node_paths=PackedStringArray("spawn_points")]
+script = ExtResource("1_2j47t")
+spawn_points = [NodePath("Players/SpawnPoint"), NodePath("Players/SpawnPoint2"), NodePath("Players/SpawnPoint3"), NodePath("Players/SpawnPoint4")]
+
+[node name="MaxStageTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="Environment" type="Node" parent="."]
+
+[node name="Map" type="Node" parent="Environment"]
+editor_description = "Objects that are ruled by the custom gravity system
+"
+
+[node name="Center" type="RigidBody2D" parent="Environment/Map" groups=["GravitySystem"]]
+position = Vector2(600, 300)
+mass = 81.28
+gravity_scale = 0.0
+script = ExtResource("1_wwocr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Map/Center"]
+scale = Vector2(3.7, 3.7)
+shape = SubResource("CircleShape2D_4byo2")
+
+[node name="RigidBody2D2" type="RigidBody2D" parent="Environment/Map" groups=["GravitySystem"]]
+position = Vector2(822, 300)
+gravity_scale = 0.0
+linear_velocity = Vector2(0, 20)
+script = ExtResource("1_wwocr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Map/RigidBody2D2"]
+shape = SubResource("CircleShape2D_4byo2")
+
+[node name="RigidBody2D3" type="RigidBody2D" parent="Environment/Map" groups=["GravitySystem"]]
+position = Vector2(346, 501)
+gravity_scale = 0.0
+linear_velocity = Vector2(-20, 0)
+script = ExtResource("1_wwocr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Map/RigidBody2D3"]
+shape = SubResource("CircleShape2D_4byo2")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Environment/Map"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environment/Map/StaticBody2D"]
+polygon = PackedVector2Array(-4, -10, 1158, -14, 1157, 650, 0, 650, 0, 691, 1200, 696, 1202, -58, 398, -61, -64, -58, -56, 694, 1, 693)
+
+[node name="Objects" type="Node" parent="Environment"]
+editor_description = "power ups"
+
+[node name="Players" type="Node2D" parent="." groups=["Player"]]
+
+[node name="SpawnPoint" type="Marker2D" parent="Players"]
+position = Vector2(204, 185)
+
+[node name="SpawnPoint2" type="Marker2D" parent="Players"]
+position = Vector2(220, 507)
+
+[node name="SpawnPoint3" type="Marker2D" parent="Players"]
+position = Vector2(942, 445)
+
+[node name="SpawnPoint4" type="Marker2D" parent="Players"]
+position = Vector2(902, 173)
+
+[node name="GUI" parent="." instance=ExtResource("3_p2mm4")]
+
+[connection signal="timeout" from="MaxStageTimer" to="GUI" method="remove_one_to_timer"]

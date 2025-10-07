@@ -1,0 +1,347 @@
+[gd_scene load_steps=13 format=3 uid="uid://c8gar8ad3vayq"]
+
+[ext_resource type="Script" path="res://Scripts/GameLauncher.gd" id="1_m0j7y"]
+[ext_resource type="ButtonGroup" uid="uid://dm4truc8njc2m" path="res://Configs/GameEndCondition.tres" id="2_2lj2x"]
+[ext_resource type="Script" path="res://Scripts/LabelExposer.gd" id="2_7vxxd"]
+[ext_resource type="ButtonGroup" uid="uid://bje6k5sl0epiy" path="res://Configs/StageGameMode.tres" id="4_cjxno"]
+[ext_resource type="ButtonGroup" uid="uid://b82qrskmb7ixb" path="res://Configs/StageLifeMode.tres" id="5_qe488"]
+[ext_resource type="ButtonGroup" uid="uid://dgf8v3fkoylix" path="res://Configs/StageEndCondition.tres" id="6_yyxcq"]
+
+[sub_resource type="SystemFont" id="SystemFont_l1hjd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cbtb4"]
+font = SubResource("SystemFont_l1hjd")
+font_size = 56
+font_color = Color(1, 0.576471, 0.831373, 1)
+outline_size = 4
+outline_color = Color(0.999997, 0.168001, 0.75252, 1)
+shadow_size = 13
+shadow_color = Color(0.999998, 0.337377, 0.774116, 0.388235)
+shadow_offset = Vector2(0.85, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_ne87t"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_v1uvx"]
+font = SubResource("SystemFont_ne87t")
+font_size = 23
+font_color = Color(1, 0.215686, 1, 1)
+outline_size = 1
+outline_color = Color(1, 0.168627, 1, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_h8xc3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_kxvu3"]
+font = SubResource("SystemFont_h8xc3")
+font_size = 18
+font_color = Color(1, 0.721569, 1, 1)
+
+[node name="Menu" type="CanvasLayer" node_paths=PackedStringArray("menu_pages")]
+script = ExtResource("1_m0j7y")
+gameEndConditionGroup = ExtResource("2_2lj2x")
+stageEndConditionGroup = ExtResource("6_yyxcq")
+stageGameModeGroup = ExtResource("4_cjxno")
+stageLifeModeGroup = ExtResource("5_qe488")
+menu_pages = [NodePath("ColorRect/GameSettings"), NodePath("ColorRect/StageSettings"), NodePath("ColorRect/Launcher")]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(100, 100)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.419813, 0.419813, 0.419813, 1)
+
+[node name="GravityFightTitle" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 217.0
+grow_horizontal = 2
+text = "GRAVITY FIGHT"
+label_settings = SubResource("LabelSettings_cbtb4")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_7vxxd")
+
+[node name="GameSettings" type="PanelContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -198.0
+offset_top = -109.0
+offset_right = 197.0
+offset_bottom = 127.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect/GameSettings"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/GameSettings/MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="ColorRect/GameSettings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Game Settings"
+label_settings = SubResource("LabelSettings_v1uvx")
+
+[node name="Subtitle" type="Label" parent="ColorRect/GameSettings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Game end condition"
+label_settings = SubResource("LabelSettings_kxvu3")
+
+[node name="KillNumber" type="CheckBox" parent="ColorRect/GameSettings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+button_pressed = true
+button_group = ExtResource("2_2lj2x")
+text = "Kill number"
+
+[node name="StageWinNumber" type="CheckBox" parent="ColorRect/GameSettings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+button_group = ExtResource("2_2lj2x")
+text = "Stage win number"
+
+[node name="FixedStageNumber" type="CheckBox" parent="ColorRect/GameSettings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+button_group = ExtResource("2_2lj2x")
+text = "Fixed stage number"
+
+[node name="UserInput" type="CheckBox" parent="ColorRect/GameSettings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+button_group = ExtResource("2_2lj2x")
+text = "User input"
+
+[node name="StagesLimit" type="SpinBox" parent="ColorRect/GameSettings/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+value = 5.0
+prefix = "Limited to"
+suffix = "stages"
+
+[node name="KillsLimit" type="SpinBox" parent="ColorRect/GameSettings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+value = 5.0
+prefix = "Limited to"
+suffix = "kills"
+
+[node name="StagesWinLimit" type="SpinBox" parent="ColorRect/GameSettings/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+value = 5.0
+prefix = "Limited to"
+suffix = "wins"
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect/GameSettings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="NextButton" type="Button" parent="ColorRect/GameSettings/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "Next"
+
+[node name="StageSettings" type="PanelContainer" parent="ColorRect"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -198.0
+offset_top = -109.0
+offset_right = 197.0
+offset_bottom = 127.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect/StageSettings"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/StageSettings/MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="ColorRect/StageSettings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Stage Settings"
+label_settings = SubResource("LabelSettings_v1uvx")
+
+[node name="Subtitle" type="Label" parent="ColorRect/StageSettings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Stage game mode"
+label_settings = SubResource("LabelSettings_kxvu3")
+
+[node name="FreeForAll" type="CheckBox" parent="ColorRect/StageSettings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+button_pressed = true
+button_group = ExtResource("4_cjxno")
+text = "Free for all"
+
+[node name="Teams" type="CheckBox" parent="ColorRect/StageSettings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+button_group = ExtResource("4_cjxno")
+text = "Teams
+"
+
+[node name="Subtitle2" type="Label" parent="ColorRect/StageSettings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Stage life mode"
+label_settings = SubResource("LabelSettings_kxvu3")
+
+[node name="OneLife" type="CheckBox" parent="ColorRect/StageSettings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+button_pressed = true
+button_group = ExtResource("5_qe488")
+text = "One life"
+
+[node name="MultipleLives" type="CheckBox" parent="ColorRect/StageSettings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+button_group = ExtResource("5_qe488")
+text = "Multiple lives"
+
+[node name="InfiniteLives" type="CheckBox" parent="ColorRect/StageSettings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+button_group = ExtResource("5_qe488")
+text = "Infinite lives"
+
+[node name="LivesPerPlayer" type="SpinBox" parent="ColorRect/StageSettings/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+value = 3.0
+suffix = "lives per player"
+
+[node name="LivesPerTeam" type="SpinBox" parent="ColorRect/StageSettings/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+value = 3.0
+suffix = "lives per team"
+
+[node name="Subtitle3" type="Label" parent="ColorRect/StageSettings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Stage end condition"
+label_settings = SubResource("LabelSettings_kxvu3")
+
+[node name="LastStanding" type="CheckBox" parent="ColorRect/StageSettings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+button_pressed = true
+button_group = ExtResource("6_yyxcq")
+text = "Last standing"
+
+[node name="KillLimit" type="CheckBox" parent="ColorRect/StageSettings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+button_group = ExtResource("6_yyxcq")
+text = "Kill limit"
+
+[node name="TimeLimit" type="CheckBox" parent="ColorRect/StageSettings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+button_group = ExtResource("6_yyxcq")
+text = "Time limit"
+
+[node name="UserInput" type="CheckBox" parent="ColorRect/StageSettings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+button_group = ExtResource("6_yyxcq")
+text = "User input"
+
+[node name="SetKillLimit" type="SpinBox" parent="ColorRect/StageSettings/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+value = 10.0
+rounded = true
+prefix = "Kill limit:"
+suffix = "kills"
+
+[node name="SetTimeLimit" type="SpinBox" parent="ColorRect/StageSettings/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+value = 100.0
+prefix = "Time limit:"
+suffix = "s"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/StageSettings/MarginContainer/VBoxContainer"]
+layout_direction = 2
+layout_mode = 2
+theme_override_constants/separation = 200
+alignment = 1
+
+[node name="BackButton" type="Button" parent="ColorRect/StageSettings/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="NextButton" type="Button" parent="ColorRect/StageSettings/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Next"
+
+[node name="Launcher" type="PanelContainer" parent="ColorRect"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -198.0
+offset_top = -109.0
+offset_right = 197.0
+offset_bottom = 127.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect/Launcher"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/Launcher/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="Warning" type="Label" parent="ColorRect/Launcher/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Please add players to launch the game"
+label_settings = SubResource("LabelSettings_v1uvx")
+
+[node name="AddPlayerButton" type="Button" parent="ColorRect/Launcher/MarginContainer/VBoxContainer"]
+z_index = 5
+layout_mode = 2
+text = "Add Player"
+
+[node name="LaunchGameButton" type="Button" parent="ColorRect/Launcher/MarginContainer/VBoxContainer"]
+z_index = 5
+layout_mode = 2
+text = "Launch Game"
+
+[node name="BackButton" type="Button" parent="ColorRect/Launcher/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="SpawnPoint" type="Marker2D" parent="Players"]
+position = Vector2(176, 366)
+
+[connection signal="value_changed" from="ColorRect/GameSettings/MarginContainer/VBoxContainer/StagesLimit" to="." method="_on_stages_limit_value_changed"]
+[connection signal="value_changed" from="ColorRect/GameSettings/MarginContainer/VBoxContainer/KillsLimit" to="." method="_on_kills_limit_value_changed"]
+[connection signal="value_changed" from="ColorRect/GameSettings/MarginContainer/VBoxContainer/StagesWinLimit" to="." method="_on_stages_win_limit_value_changed"]
+[connection signal="pressed" from="ColorRect/GameSettings/MarginContainer/VBoxContainer/MarginContainer/NextButton" to="." method="_on_next_button_pressed"]
+[connection signal="value_changed" from="ColorRect/StageSettings/MarginContainer/VBoxContainer/LivesPerPlayer" to="." method="_on_lives_per_player_value_changed"]
+[connection signal="value_changed" from="ColorRect/StageSettings/MarginContainer/VBoxContainer/LivesPerTeam" to="." method="_on_lives_per_team_value_changed"]
+[connection signal="value_changed" from="ColorRect/StageSettings/MarginContainer/VBoxContainer/SetKillLimit" to="." method="_on_set_kill_limit_value_changed"]
+[connection signal="value_changed" from="ColorRect/StageSettings/MarginContainer/VBoxContainer/SetTimeLimit" to="." method="_on_set_time_limit_value_changed"]
+[connection signal="pressed" from="ColorRect/StageSettings/MarginContainer/VBoxContainer/HBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="ColorRect/StageSettings/MarginContainer/VBoxContainer/HBoxContainer/NextButton" to="." method="_on_next_button_pressed"]
+[connection signal="pressed" from="ColorRect/Launcher/MarginContainer/VBoxContainer/AddPlayerButton" to="." method="_on_add_player_button_pressed"]
+[connection signal="pressed" from="ColorRect/Launcher/MarginContainer/VBoxContainer/LaunchGameButton" to="." method="_on_launch_game_button_pressed"]
+[connection signal="pressed" from="ColorRect/Launcher/MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

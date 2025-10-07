@@ -1,0 +1,74 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvrv4a771xj54"]
+
+[ext_resource type="Script" path="res://Scripts/GameMenu.gd" id="1_dbq8i"]
+
+[sub_resource type="GDScript" id="GDScript_1gsjn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3553l"]
+font_size = 44
+font_color = Color(0.883949, 0.0593691, 0.0347099, 1)
+shadow_color = Color(0, 0, 0, 0.665)
+shadow_offset = Vector2(2, 2)
+
+[node name="GameGui" type="CanvasLayer"]
+script = ExtResource("1_dbq8i")
+
+[node name="StopwatchTimer" type="Timer" parent="."]
+
+[node name="GoToMainMenu" type="Button" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -146.0
+offset_top = -96.0
+offset_right = -5.0
+offset_bottom = -65.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Go to Main Menu"
+
+[node name="EndGame" type="Button" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -146.0
+offset_top = -134.0
+offset_right = -5.0
+offset_bottom = -103.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "End Game"
+
+[node name="TimeLabel" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -78.0
+offset_bottom = 48.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "00:00"
+vertical_alignment = 2
+script = SubResource("GDScript_1gsjn")
+
+[node name="StartTimeLabel" type="Label" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 1
+text = "00:00"
+label_settings = SubResource("LabelSettings_3553l")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = SubResource("GDScript_1gsjn")
+metadata/_edit_lock_ = true
+
+[connection signal="pressed" from="GoToMainMenu" to="." method="_on_go_to_main_menu_pressed"]
+[connection signal="pressed" from="EndGame" to="." method="_on_end_game_pressed"]

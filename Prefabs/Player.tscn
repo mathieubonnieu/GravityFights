@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://grwtm8sc3why"]
+
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_wdgdm"]
+[ext_resource type="Texture2D" uid="uid://dvftic7pf25yu" path="res://Assets/Sprites/ships/blue.png" id="2_20fqt"]
+[ext_resource type="Shader" uid="uid://0urjlv2qk5s4" path="res://Assets/Sprites/flame/flames.tres" id="2_qg6x0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_46ksv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s4dk5"]
+shader = ExtResource("2_qg6x0")
+shader_parameter/RemapValueA = Vector3(0, 0.2, 0)
+shader_parameter/RemapValueB = Vector3(1.67, 0.8, 0.2)
+
+[sub_resource type="Gradient" id="Gradient_jbowi"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_x2cxu"]
+gradient = SubResource("Gradient_jbowi")
+width = 1
+height = 1
+
+[node name="CharacterBody2D" type="CharacterBody2D" groups=["Player"]]
+script = ExtResource("1_wdgdm")
+
+[node name="RecoilTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_46ksv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_20fqt")
+
+[node name="Flames" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_s4dk5")
+position = Vector2(-7.10543e-15, 16)
+scale = Vector2(20, 13.91)
+texture = SubResource("GradientTexture2D_x2cxu")
+
+[connection signal="timeout" from="RecoilTimer" to="." method="_on_recoil_timer_timeout"]
